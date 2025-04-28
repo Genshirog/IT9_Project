@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('RoleID');
             $table->string('email',60)->nullable();
             $table->string('contactNumber',11)->nullable();
+            $table->date('birthday');
         });
     }
 

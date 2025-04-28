@@ -9,5 +9,6 @@
 </head>
 <body class="bg-[#094047]">
     @include('admin.sidebar')
+    <!--A seach table eeds a reference i cant code fuck-->
 </body>
 </html>

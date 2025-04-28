@@ -3,28 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin.index');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.index',compact('user'));
     }
     public function profile(){
-        return view('admin.profile');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.profile', compact('user'));
     }
     public function add(){
-        return view('admin.user.add');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.user.add',compact('user'));
     }
     public function search(){
-        return view('admin.user.search');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.user.search',compact('user'));
     }
     public function bar(){
-        return view('admin.graph.bar');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.graph.bar',compact('user'));
     }
     public function line(){
-        return view('admin.graph.line');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.graph.line',compact('user'));
     }
     public function pie(){
-        return view('admin.graph.pie');
+        $user = User::where('UserID', '1')->first();
+        return view('admin.graph.pie',compact('user'));
     }
 }

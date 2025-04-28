@@ -18,7 +18,8 @@ class AuthSeeder extends Seeder
             'lastname' => 'Arizobal', 
             'username' => 'admin', 
             'password' => 'admin',
-            'RoleID' => '1'
+            'RoleID' => '1',
+            'birthday' => '2025-04-25'
         ]);
     }
 }

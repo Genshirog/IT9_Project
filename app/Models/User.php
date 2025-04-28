@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
     protected $fillable =[
         'firstname',
         'lastname',
@@ -14,7 +16,8 @@ class User extends Model
         'address',
         'RoleID',
         'email',
-        'contactNumber'
+        'contactNumber',
+        'birthday'
     ];
 
     public $timestamps = false;

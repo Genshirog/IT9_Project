@@ -9,10 +9,11 @@ use App\Http\Controllers\StaffController;
 Route::get('/', [AuthController::class, 'auth'])->name('auth');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::post('/register',[AuthController::class, 'store'])->name('store');
+Route::post('/logout', [AuthController::class,'logout'])->name('logout');
+Route::prefix('admin')->name('admin.')->middleware('checkrole:1')->group(function () {
     // Dashboard route
-    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
 
     // Profile route
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
@@ -31,5 +32,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-Route::get('/staff', [StaffController::class,'index'])->name('staff.index');
-Route::get('/customer', [CustomerController::class,'index'])->name('customer.index');   
+Route::get('/staff', [StaffController::class,'index'])->name('staff.index')->middleware('checkrole:2');
+Route::get('/customer', [CustomerController::class,'index'])->name('customer.index')->middleware('checkrole:3');   
