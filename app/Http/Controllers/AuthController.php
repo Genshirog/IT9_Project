@@ -49,12 +49,33 @@ class AuthController extends Controller
         $validate = $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required',
-            'birthday' => 'required',
-            'username' => 'required',
-            'password' => 'required'
+            'email' => 'required|email|unique:users,email',
+            'birthday' => 'required|date',
+            'username' => 'required|unique:users,username',
+            'password' => 'required|min:8'
         ]);        
 
+        $user = new User();
+        $user->firstname = $validate['firstname'];
+        $user->lastname = $validate['lastname'];
+        $user->email = $validate['email'];
+        $user->birthday = $validate['birthday'];
+        $user->username = $validate['username'];
+
+        // For now, if you are not hashing password yet, just do:
+        $user->password = $validate['password'];
+
+        // You can set a default role too, like "customer"
+        $user->RoleID = 3; // Example: 1 = Admin, 2 = Staff, 3 = Customer
+
+        // Save to the database
+        $user->save();
+
+        Auth::login($user);
+        session(['user_role' => $user->RoleID]);
+        $request->session()->save();
+        // After saving, redirect or return
+        return redirect()->route('customer.index');
     }
 
     public function logout(Request $request)

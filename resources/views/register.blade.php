@@ -43,7 +43,7 @@
                 <input type="password" name="password" class="w-full p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password">
             </div>
             <div class="text-center">
-                <button type="submit" class="w-[50%] bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600">Login</button>
+                <button type="submit" class="w-[50%] bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600">Sign Up</button>
             </div>
             <div class="text-center mt-4 text-white">
                 <a href="{{ route('auth') }}">Already have an account?</a>
