@@ -10,25 +10,53 @@
 <body class="bg-[#094047]">
     <div class="flex">
         @include('admin.sidebar')
-        <div class="flex-1 items-center justify-center min-h-screen">
-            <h1>Add Staff</h1>
-            <form action="#" method="POST" class="bg-black/30 p-8 rounded shadow-md backdrop-blur-sm">
-                @csrf
-                <label>Firstname</label>
-                <input type="text" name="" id="">
-                <label>Lastname</label>
-                <input type="text" name="" id="">
-                <label>Address</label>
-                <input type="text" name="" id="">
-                <label>Email</label>
-                <input type="email" name="" id="">
-                <label>ContactNumber</label>
-                <input type="text" name="" id="">
-                <label>Username</label>
-                <input type="text" name="" id="">
-                <label>Password</label>
-                <input type="password" name="" id="">
-            </form>
+        <div class="flex flex-1 items-center justify-center min-h-screen">
+            <div class="w-full max-w-4xl px-6"> <!-- Wider form -->
+                <form action="#" method="POST" class="bg-black/30 p-10 rounded shadow-md backdrop-blur-sm space-y-6">
+                    @csrf
+                    <h1 class="text-center text-3xl font-bold mb-8 text-white">Add Staff</h1>
+                    <div class="grid grid-cols-2 gap-6"> <!-- 2 columns -->
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Firstname</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Lastname</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Address</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Birthday</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Email</label>
+                            <input type="email" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Contact Number</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Username</label>
+                            <input type="text" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">Password</label>
+                            <input type="password" name="" id="" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center pt-6">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-12 rounded-full text-lg">
+                            Add Staff
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

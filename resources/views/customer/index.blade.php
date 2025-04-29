@@ -6,6 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello Welcome to customer</h1>
+    <h1>logo</h1>
+<!--Search bar-->
+    <ul>
+        <li>Home</li>
+        <li>Orders</li>
+        <li>Order History</li>
+        <li><i></i>User</li>
+        <!--Drop Down-->
+        <ul>
+            <li>Settings</li>
+            <li>Logout</li>
+        </ul>
+    </ul>
+    <div>
+        <h1>Heading</h1>
+    </div>
+<!--This is where the main items are-->
 </body>
 </html>

@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected $primaryKey = 'UserID';
     protected $fillable =[
         'firstname',
         'lastname',

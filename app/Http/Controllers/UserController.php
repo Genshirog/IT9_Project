@@ -1,20 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function search()
     {
-        //
+        $user = Auth::user();
+        $users = DB::table('users_view')->get();
+        return view('admin.user.search',compact('users','user'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

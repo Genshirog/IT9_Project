@@ -17,7 +17,7 @@ class AuthSeeder extends Seeder
             'firstname' => 'Tom',
             'lastname' => 'Arizobal', 
             'username' => 'admin', 
-            'password' => 'admin',
+            'password' => 'admin123',
             'RoleID' => '1',
             'birthday' => '2025-04-25'
         ]);

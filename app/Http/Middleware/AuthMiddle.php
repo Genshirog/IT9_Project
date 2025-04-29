@@ -16,13 +16,12 @@ class AuthMiddle
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        $isLoggedIn = Auth::check() || session()->has('user_role');
-    
-        if (!$isLoggedIn) {
+        
+        if (!Auth::check()) {
             return redirect()->route('auth');
         }
         
-        $currentRole = Auth::check() ? Auth::user()->RoleID : session('user_role');
+        $currentRole = Auth::user()->RoleID;
         
         if ($currentRole != $role) {
             return redirect('/');

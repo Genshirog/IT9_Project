@@ -5,22 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function auth(){
         return view('auth');
     }
 
-    public function register(){
-        return view('register');
-    }
-
     public function login(Request $request){
-        $validate = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
+        try {
+            $validate = $request->validate([
+                'username' => 'required',
+                'password' => 'required|min:8',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->errors(), 'login') // Name the error bag here
+                ->withInput();
+        }   
 
         $user = User::where('username', $validate['username'])->first();
 
@@ -36,7 +39,7 @@ class AuthController extends Controller
                 case 3:
                     return redirect()->route('customer.index');
                 default:
-                    return redirect()->route('/');
+                    return redirect()->route('auth');
             }
         } else {
             return back()->withErrors([
@@ -46,14 +49,20 @@ class AuthController extends Controller
     }
 
     public function store(Request $request){
-        $validate = $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'birthday' => 'required|date',
-            'username' => 'required|unique:users,username',
-            'password' => 'required|min:8'
-        ]);        
+        try {
+            $validate = $request->validate([
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'birthday' => 'required|date',
+                'username' => 'required|unique:users,username',
+                'password' => 'required|min:8'
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->errors(), 'register') // Name the error bag here
+                ->withInput();
+        }
 
         $user = new User();
         $user->firstname = $validate['firstname'];
