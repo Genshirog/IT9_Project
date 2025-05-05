@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email',60)->nullable();
             $table->string('contactNumber',11)->nullable();
             $table->date('birthday');
+            $table->string('image')->nullable();
         });
     }
 

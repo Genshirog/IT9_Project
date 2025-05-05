@@ -17,10 +17,11 @@ Route::prefix('admin')->name('admin.')->middleware('checkrole:1')->group(functio
 
     // Profile route
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
-
+    Route::put('/image', [AdminController::class, 'image'])->name('image');
     // User-related routes
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/add', [AdminController::class, 'add'])->name('add');
+        Route::post('/store', [AdminController::class, 'store'])->name('store');
         Route::get('/search', [AdminController::class, 'search'])->name('search');
     });
 
@@ -32,6 +33,29 @@ Route::prefix('admin')->name('admin.')->middleware('checkrole:1')->group(functio
     });
 });
 
-Route::get('/staff', [StaffController::class,'index'])->name('staff.index');#->middleware('checkrole:2')
-Route::get('/profile', [StaffController::class, 'profile'])->name('staff.profile');
+Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(function(){
+    Route::get('/dashboard', [StaffController::class, 'index'])->name('index');
+
+    // Profile route
+    Route::get('/profile', [StaffController::class, 'profile'])->name('profile');
+    Route::put('/image', [StaffController::class, 'image'])->name('image');
+    // User-related routes
+    Route::prefix('product')->name('product.')->group(function () {
+        Route::get('/add', [StaffController::class, 'add'])->name('add');
+        Route::post('/store', [StaffController::class, 'store'])->name('store');
+        Route::put('/image', [StaffController::class, 'image'])->name('image');
+        Route::get('/search', [StaffController::class, 'search'])->name('search');
+    });
+
+    Route::prefix('site')->name('site.')->group(function () {
+        Route::get('/edit', [StaffController::class, 'edit'])->name('edit');
+    });
+
+    // Graph-related routes
+    Route::prefix('graph')->name('graph.')->group(function () {
+        Route::get('/bar', [StaffController::class, 'bar'])->name('bar');
+        Route::get('/line', [StaffController::class, 'line'])->name('line');
+        Route::get('/pie', [StaffController::class, 'pie'])->name('pie');
+    });
+});
 Route::get('/customer', [CustomerController::class,'index'])->name('customer.index')->middleware('checkrole:3');   

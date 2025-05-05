@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class CartItem extends Model
 {
-    protected $primaryKey = 'OrderItemID';
+    protected $primaryKey = 'CartItemID';
     protected $fillable = [
-        'OrderID',
+        'CartID',
         'ProductID',
         'quantity',
         'subTotal'
@@ -16,8 +16,8 @@ class OrderItem extends Model
 
     public $timestamps = false;
     
-    public function orders(){
-        return $this->belongsTo(Order::class, 'OrderID');
+    public function carts(){
+        return $this->belongsTo(Cart::class, 'CartID');
     }
 
     public function products(){

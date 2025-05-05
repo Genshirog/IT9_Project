@@ -41,4 +41,39 @@ class AdminController extends Controller
         $user = Auth::user();
         return view('admin.graph.pie',compact('user'));
     }
+
+    public function store(Request $request){
+        $validate = $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'birthday' => 'required|date',
+            'email' => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|string|min:8'
+        ]);
+
+        $staff = User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'birthday' => $request->birthday,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => $request->password,
+            'RoleID' => 2,
+        ]);
+        return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+    }
+
+    public function image(Request $request){
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $imagePath = $request->file('image')->store('profile', 'public');
+        $user = Auth::user();
+        DB::table('users')
+            ->where('UserID', $user->UserID)
+            ->update(['image' => $imagePath]);
+    
+        return back();
+    }
 }

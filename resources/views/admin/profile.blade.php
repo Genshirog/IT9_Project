@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-[#094047]">
@@ -15,11 +15,20 @@
         {{-- Admin Profile Content --}}
         <div class="flex-1 p-8">
             <h1 class="text-3xl font-bold mb-6">Admin Profile</h1>
-            <img src="" alt="insert image" class="w-32 h-32 object-cover rounded-full mb-6">
+            <img src="{{ asset('storage/'.$user->image) }}" alt="insert image" class="w-32 h-32 object-cover rounded-full mb-6">
 
-            <form action="" method="POST" enctype="multipart/form-data" class="mb-6">
+            <form action="{{ route('admin.image') }}" method="POST" enctype="multipart/form-data" class="mb-6">
                 @csrf
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 uppercase rounded hover:bg-blue-600">Upload a photo</button>
+                @method('PUT')
+                <!-- Hidden file input -->
+                <input type="file" name="image" id="fileInput" class="hidden" onchange="this.form.submit()">
+
+                <!-- Button triggers file input -->
+                <button type="button" 
+                    onclick="document.getElementById('fileInput').click()" 
+                    class="bg-blue-500 text-white px-4 py-2 uppercase rounded hover:bg-blue-600">
+                    Upload a photo
+                </button>
             </form>
 
             <h2 class="text-2xl font-semibold mb-4">Account Information</h2>

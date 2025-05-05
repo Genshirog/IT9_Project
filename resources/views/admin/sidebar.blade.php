@@ -4,7 +4,7 @@
                 <div class="text-center p-3">
                     <h1 class="text-white font-bold text-2xl">BBQ LAGAO</h1>
                 </div>
-                <li><img src="{{ asset('images/wew.jpg') }}" alt="Profile" class="w-20 h-20 rounded-full mx-auto object-cover" /></li>
+                <li><img src="{{ asset('storage/'.$user->image) }}" alt="Profile" class="w-20 h-20 rounded-full mx-auto object-cover" /></li>
                 <div class="text-center bg-[#1d3947] rounded-full mb-6">
                     <li><a href="{{ route('admin.profile') }}" class="text-white hover:text-blue-500 uppercase"><i class="fas fa-cog mr-2"></i>{{ $user->username }}</a></li>
                 </div>

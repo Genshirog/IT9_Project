@@ -19,7 +19,8 @@ class User extends Authenticatable
         'RoleID',
         'email',
         'contactNumber',
-        'birthday'
+        'birthday',
+        'image'
     ];
 
     public $timestamps = false;

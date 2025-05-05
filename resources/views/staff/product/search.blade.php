@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Document</title>
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-[#094047]">
     <div class="flex">
-        @include('admin.sidebar')
+        @include('staff.sidebar')
         <div class="flex-1 p-8 overflow-auto">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="grid grid-cols-2 gap-6">
                     <div class="flex">
-                        <h1 class="text-2xl font-bold mb-4 text-gray-800">Users Table</h1>
+                        <h1 class="text-2xl font-bold mb-4 text-gray-800">Products Table</h1>
                     </div>
                     <div class="flex justify-end">
                         <form action="" method="POST" class="flex items-center mb-4">
@@ -38,28 +38,22 @@
                         <thead class="bg-gray-100">
                             <tr>
                                 <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Birthday</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
-                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
+                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($products as $product)
                             <tr class="border-t border-gray-200">
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->UserID }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->User }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->roleName }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->birthday }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->email }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->contactNumber }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->address }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->username }}</td>
-                                <td class="py-4 px-6 break-words whitespace-normal">{{ $user->password }}</td>
+                                <td class="py-4 px-6 break-words whitespace-normal">{{ $product->ProductID }}</td>
+                                <td class="py-4 px-6 break-words whitespace-normal"><img src="{{ asset('storage/'.$product->image) }}" alt="" class="h-20 w-20 object-cover rounded-lg"></td>
+                                <td class="py-4 px-6 break-words whitespace-normal">{{ $product->productName }}</td>
+                                <td class="py-4 px-6 break-words whitespace-normal">{{ $product->category }}</td>
+                                <td class="py-4 px-6 break-words whitespace-normal">{{ $product->productDescription }}</td>
+                                <td class="py-4 px-6 break-words whitespace-normal">P{{ $product->price }}</td>
                                 <td class="py-4 px-6 break-words whitespace-normal">
                                     <button class="text-blue-500 hover:underline">Edit</button>
                                     <button class="text-red-500 hover:underline ml-2">Delete</button>

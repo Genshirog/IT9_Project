@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Cart extends Model
 {
-    protected $primaryKey = 'OrderID';
+    protected $primaryKey = 'CartID';
     protected $fillable = [
         'UserID',
-        'status',
-        'deliveryType',
         'totalPrice'
     ];
 
@@ -20,7 +18,7 @@ class Order extends Model
         return $this->belongsTo(User::class, 'UserID');
     }
 
-    public function order_items(){
-        return $this->hasMany(OrderItem::class, 'OrderID');
+    public function cart_items(){
+        return $this->hasMany(CartItem::class, 'CartItemID');
     }
 }
