@@ -4,12 +4,12 @@
         <span class="text-xl font-bold">BBQ Lagao and Beef Pares</span>
     </div>
     <ul class="flex space-x-6 items-center">
-        <li><a href="#" class="text-gray-700 hover:text-blue-600"><i class="fas fa-home mr-2"></i>Home</a></li>
-        <li><a href="#" class="text-gray-700 hover:text-blue-600"><i class="fas fa-shopping-cart mr-2"></i>Cart</a></li>
+        <li><a href="{{ route('customer.index') }}" class="text-gray-700 hover:text-blue-600"><i class="fas fa-home mr-2"></i>Home</a></li>
+        <li><a href="{{ route('customer.cart') }}" class="text-gray-700 hover:text-blue-600"><i class="fas fa-shopping-cart mr-2"></i>Cart</a></li>
         <li><a href="#" class="text-gray-700 hover:text-blue-600"><i class="fas fa-history mr-2"></i>Order History</a></li>
         <li class="relative">
             <button id="userButton" class="flex items-center text-gray-700 hover:text-blue-600 focus:outline-none">
-                <span><i class="fas fa-user mr-2"></i>User</span>
+                <span><i class="fas fa-user mr-2"></i>{{$user->username}}</span>
                 <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>

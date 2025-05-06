@@ -9,8 +9,6 @@ class Order extends Model
     protected $primaryKey = 'OrderID';
     protected $fillable = [
         'UserID',
-        'status',
-        'deliveryType',
         'totalPrice'
     ];
 

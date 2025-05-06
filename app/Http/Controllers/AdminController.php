@@ -11,7 +11,11 @@ class AdminController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        return view('admin.index',compact('user'));
+        $dailySales = DB::table('daily_sales_view')->get();
+        $weeklySales = DB::table('weekly_sales_view')->get();
+        $monthlySales = DB::table('monthly_sales_view')->get();
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('admin.index', compact('user','dailySales', 'weeklySales', 'monthlySales','bestSellers'));
     }
     public function profile(){
         $user = Auth::user();
@@ -31,15 +35,20 @@ class AdminController extends Controller
 
     public function bar(){
         $user = Auth::user();
-        return view('admin.graph.bar',compact('user'));
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('admin.graph.bar',compact('user','bestSellers'));
     }
     public function line(){
         $user = Auth::user();
-        return view('admin.graph.line',compact('user'));
+        $dailySales = DB::table('daily_sales_view')->get();
+        $weeklySales = DB::table('weekly_sales_view')->get();
+        $monthlySales = DB::table('monthly_sales_view')->get();
+        return view('admin.graph.line',compact('user','dailySales', 'weeklySales', 'monthlySales'));
     }
     public function pie(){
         $user = Auth::user();
-        return view('admin.graph.pie',compact('user'));
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('admin.graph.pie',compact('user','bestSellers'));
     }
 
     public function store(Request $request){

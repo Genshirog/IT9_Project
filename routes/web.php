@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StaffController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentController;
+use App\Models\Cart;
 
 Route::get('/', [AuthController::class, 'auth'])->name('auth');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -49,6 +52,7 @@ Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(functio
 
     Route::prefix('site')->name('site.')->group(function () {
         Route::get('/edit', [StaffController::class, 'edit'])->name('edit');
+        Route::post('/status/{id}',[PaymentController::class, 'status'])->name('status');
     });
 
     // Graph-related routes
@@ -58,4 +62,11 @@ Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(functio
         Route::get('/pie', [StaffController::class, 'pie'])->name('pie');
     });
 });
-Route::get('/customer', [CustomerController::class,'index'])->name('customer.index')->middleware('checkrole:3');   
+Route::prefix('/customer')->name('customer.')->middleware('checkrole:3')->group(function(){
+    Route::get('/Menu', [CustomerController::class,'index'])->name('index');   
+    Route::get('/Cart',[CustomerController::class,'cart'])->name('cart');
+    Route::post('/store', [CartController::class,'storeToCart'])->name('storeToCart');
+    Route::put('/cart-items/{id}', [CartItemController::class, 'updateQuantity'])->name('quantity');
+    Route::delete('/cart-items/{id}', [CartItemController::class, 'deleteItems'])->name('removeItem');
+    Route::post('/payment',[PaymentController::class, 'payment'])->name('payment');
+});

@@ -11,7 +11,11 @@ class StaffController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        return view('staff.index', compact('user'));
+        $dailySales = DB::table('daily_sales_view')->get();
+        $weeklySales = DB::table('weekly_sales_view')->get();
+        $monthlySales = DB::table('monthly_sales_view')->get();
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('staff.index', compact('user','dailySales', 'weeklySales', 'monthlySales','bestSellers'));
     }
     public function profile(){
         $user = Auth::user();
@@ -61,18 +65,24 @@ class StaffController extends Controller
     }
     public function edit(){
         $user = Auth::user();
-        return view('staff.site.edit',compact('user'));
+        $orders = DB::select("SELECT * FROM unpaid_payment_view");
+        return view('staff.site.edit',compact('user','orders'));
     }
     public function bar(){
         $user = Auth::user();
-        return view('staff.graph.bar',compact('user'));
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('staff.graph.bar',compact('user','bestSellers'));
     }
     public function pie(){
         $user = Auth::user();
-        return view('staff.graph.pie',compact('user'));
+        $bestSellers = DB::table('best_selling_products')->get();
+        return view('staff.graph.pie',compact('user', 'bestSellers'));
     }
     public function line(){
         $user = Auth::user();
-        return view('staff.graph.line',compact('user'));
+        $dailySales = DB::table('daily_sales_view')->get();
+        $weeklySales = DB::table('weekly_sales_view')->get();
+        $monthlySales = DB::table('monthly_sales_view')->get();
+        return view('staff.graph.line',compact('user','dailySales', 'weeklySales', 'monthlySales'));
     }
 }

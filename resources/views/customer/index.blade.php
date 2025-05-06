@@ -36,26 +36,28 @@
                 </div>
 
                 <!-- Modal -->
-                <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
-                        <div class="flex justify-end p-4">
-                            <button @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
-                        </div>
+            <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <form action="{{ route('customer.storeToCart') }}" method="POST" class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                @csrf
+                    <input type="text" hidden name="ProductID" value="{{ $product->ProductID }}">
+                    <div class="flex justify-end p-4">
+                        <button type="button" @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
+                    </div>
                         <img src="{{ asset('storage/'. $product->image) }}" alt="Image of {{ $product->productName }}" class="w-full h-40 object-cover rounded-lg mb-4">
                         <h2 class="text-lg font-bold mb-2">{{ $product->productName }}</h2>
                         <p class="mt-2 font-semibold">₱ {{ $product->price }} / {{ $product->unit ?? 'srv' }}</p>
                         <p class="text-sm text-gray-600">{{ $product->productDescription }}</p>
-                        <div x-data="{ quantity: 0 }" class="flex flex-col space-y-4 p-6">
+                        <div x-data="{ quantity: 1 }" class="flex flex-col space-y-4 p-6">
                             <!-- Row: Quantity Controls -->
                             <div class="flex flex-row items-center justify-center space-x-2">
-                                <button @click="quantity = Math.max(0, quantity - 1)" 
+                                <button type="button" @click="quantity = Math.max(1, quantity - 1)" 
                                         class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">-</button>
                                 
                                         <div class="bg-white text-center py-1 px-8 rounded-lg flex items-center justify-center mx-4 shadow-lg">
                                             <p x-text="quantity" class="text-xl font-semibold"></p>
                                         </div>
                                 
-                                <button @click="quantity++" 
+                                <button type="button" @click="quantity++" 
                                         class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">+</button>
                                 
                                 <!-- Hidden input to submit -->
@@ -69,7 +71,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         @endforeach
@@ -99,25 +101,27 @@
 
                             <!-- Modal -->
                             <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                <div class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                <form action="{{ route('customer.storeToCart') }}" method="POST" class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                @csrf
+                                    <input type="text" hidden name="ProductID" value="{{ $product->ProductID }}">
                                     <div class="flex justify-end p-4">
-                                        <button @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
+                                        <button type="button" @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
                                     </div>
                                     <img src="{{ asset('storage/'. $product->image) }}" alt="Image of {{ $product->productName }}" class="w-full h-40 object-cover rounded-lg mb-4">
                                     <h2 class="text-lg font-bold mb-2">{{ $product->productName }}</h2>
                                     <p class="mt-2 font-semibold">₱ {{ $product->price }} / {{ $product->unit ?? 'srv' }}</p>
                                     <p class="text-sm text-gray-600">{{ $product->productDescription }}</p>
-                                    <div x-data="{ quantity: 0 }" class="flex flex-col space-y-4 p-6">
+                                    <div x-data="{ quantity: 1 }" class="flex flex-col space-y-4 p-6">
                                         <!-- Row: Quantity Controls -->
                                         <div class="flex flex-row items-center justify-center space-x-2">
-                                            <button @click="quantity = Math.max(0, quantity - 1)" 
+                                            <button type="button" @click="quantity = Math.max(1, quantity - 1)" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">-</button>
                                             
                                                 <div class="bg-white text-center py-1 px-8 rounded-lg flex items-center justify-center mx-4 shadow-lg">
                                                     <p x-text="quantity" class="text-xl font-semibold"></p>
                                                 </div>
                                             
-                                            <button @click="quantity++" 
+                                            <button type="button" @click="quantity++" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">+</button>
                                             
                                             <!-- Hidden input to submit -->
@@ -131,7 +135,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                 @endforeach
@@ -161,25 +165,27 @@
 
                             <!-- Modal -->
                             <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                <div class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                <form action="{{ route('customer.storeToCart') }}" method="POST" class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                @csrf
+                                    <input type="text" hidden name="ProductID" value="{{ $product->ProductID }}">
                                     <div class="flex justify-end p-4">
-                                        <button @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
+                                        <button type="button" @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
                                     </div>
                                     <img src="{{ asset('storage/'. $product->image) }}" alt="Image of {{ $product->productName }}" class="w-full h-40 object-cover rounded-lg mb-4">
                                     <h2 class="text-lg font-bold mb-2">{{ $product->productName }}</h2>
                                     <p class="mt-2 font-semibold">₱ {{ $product->price }} / {{ $product->unit ?? 'srv' }}</p>
                                     <p class="text-sm text-gray-600">{{ $product->productDescription }}</p>
-                                    <div x-data="{ quantity: 0 }" class="flex flex-col space-y-4 p-6">
+                                    <div x-data="{ quantity: 1 }" class="flex flex-col space-y-4 p-6">
                                         <!-- Row: Quantity Controls -->
                                         <div class="flex flex-row items-center justify-center space-x-2">
-                                            <button @click="quantity = Math.max(0, quantity - 1)" 
+                                            <button type="button" @click="quantity = Math.max(1, quantity - 1)" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">-</button>
                                             
                                                 <div class="bg-white text-center py-1 px-8 rounded-lg flex items-center justify-center mx-4 shadow-lg">
                                                     <p x-text="quantity" class="text-xl font-semibold"></p>
                                                 </div>
                                             
-                                            <button @click="quantity++" 
+                                            <button type="button" @click="quantity++" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">+</button>
                                             
                                             <!-- Hidden input to submit -->
@@ -193,7 +199,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                 @endforeach
@@ -222,25 +228,27 @@
 
                             <!-- Modal -->
                             <div x-show="open" @click.away="open = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                                <div class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                <form action="{{ route('customer.storeToCart') }}" method="POST" class="bg-[#FFF3F3] p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+                                @csrf
+                                    <input type="text" hidden name="ProductID" value="{{ $product->ProductID }}">
                                     <div class="flex justify-end p-4">
-                                        <button @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
+                                        <button type="button" @click="open = false" class="absolute top-2 right-2 bg-[#FFF3F3] text-black px-4 py-2 rounded hover:bg-red-600 hover:text-white">x</button>
                                     </div>
                                     <img src="{{ asset('storage/'. $product->image) }}" alt="Image of {{ $product->productName }}" class="w-full h-40 object-cover rounded-lg mb-4">
                                     <h2 class="text-lg font-bold mb-2">{{ $product->productName }}</h2>
                                     <p class="mt-2 font-semibold">₱ {{ $product->price }} / {{ $product->unit ?? 'srv' }}</p>
                                     <p class="text-sm text-gray-600">{{ $product->productDescription }}</p>
-                                    <div x-data="{ quantity: 0 }" class="flex flex-col space-y-4 p-6">
+                                    <div x-data="{ quantity: 1 }" class="flex flex-col space-y-4 p-6">
                                         <!-- Row: Quantity Controls -->
                                         <div class="flex flex-row items-center justify-center space-x-2">
-                                            <button @click="quantity = Math.max(0, quantity - 1)" 
+                                            <button type="button" @click="quantity = Math.max(1, quantity - 1)" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">-</button>
                                             
                                                 <div class="bg-white text-center py-1 px-8 rounded-lg flex items-center justify-center mx-4 shadow-lg">
                                                     <p x-text="quantity" class="text-xl font-semibold"></p>
                                                 </div>
                                             
-                                            <button @click="quantity++" 
+                                            <button type="button" @click="quantity++" 
                                                     class="bg-gray-200 px-3 py-1 rounded-full border-2 border-black hover:bg-gray-300">+</button>
                                             
                                             <!-- Hidden input to submit -->
@@ -254,7 +262,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                 @endforeach

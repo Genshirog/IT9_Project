@@ -6,7 +6,7 @@
                 </div>
                 <li><img src="{{ asset('storage/'.$user->image) }}" alt="Profile" class="w-20 h-20 rounded-full mx-auto object-cover" /></li>
                 <div class="text-center bg-[#1d3947] rounded-full mb-6">
-                    <li><a href="{{ route('staff.profile') }}" class="text-white hover:text-blue-500 uppercase"><i class="fas fa-cog mr-2"></i><!--{{ $user->username }}-->Staff</a></li>
+                    <li><a href="{{ route('staff.profile') }}" class="text-white hover:text-blue-500 uppercase"><i class="fas fa-cog mr-2"></i>{{ $user->username }}</a></li>
                 </div>
                 <li><a href="{{ route('staff.index') }}" class="text-white hover:text-blue-500"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a></li>
                 <li>
@@ -19,7 +19,7 @@
                 <li>
                     <p class="text-white font-semibold"><i class="fas fa-wrench mr-2"></i>Site Management</p>
                     <ul class="ml-4 mt-2 space-y-2">
-                        <li><a href="{{ route('staff.site.edit') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-pencil-alt mr-2"></i>Add Product</a></li>
+                        <li><a href="{{ route('staff.site.edit') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-pencil-alt mr-2"></i>Orders</a></li>
                     </ul>
                 </li>
                 <li>

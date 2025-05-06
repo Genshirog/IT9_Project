@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {   
+    protected $primaryKey = 'PaymentID';
     protected $fillable = [
         'OrderID',
         'amountPayed',
         'amountChanged',
-        'paymentMethod'
+        'paymentMethod',
+        'status'
     ];
 
     public $timestamps = false;

@@ -16,11 +16,11 @@ class CartItem extends Model
 
     public $timestamps = false;
     
-    public function carts(){
+    public function cart(){
         return $this->belongsTo(Cart::class, 'CartID');
     }
 
-    public function products(){
+    public function product(){
         return $this->belongsTo(Product::class, 'ProductID');
     }
 }
