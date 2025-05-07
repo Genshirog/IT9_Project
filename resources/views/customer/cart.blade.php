@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <script src="{{ asset('js/alpine.min.js') }}" defer></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
     <title>Document</title>
 </head>
 <body class="bg-[#fef8f8]">

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="{{ asset('js/tailwind.js')}}"></script>
+    <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
 </head>
 <body class="bg-[#094047] text-white">
     <div class="flex">
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/chart.umd.min.js') }}"></script>
     
     <!-- Line Chart Script -->
     <script>

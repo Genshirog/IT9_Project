@@ -63,8 +63,9 @@ Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(functio
     });
 });
 Route::prefix('/customer')->name('customer.')->middleware('checkrole:3')->group(function(){
-    Route::get('/Menu', [CustomerController::class,'index'])->name('index');   
-    Route::get('/Cart',[CustomerController::class,'cart'])->name('cart');
+    Route::get('/menu', [CustomerController::class,'index'])->name('index');   
+    Route::get('/cart',[CustomerController::class,'cart'])->name('cart');
+    Route::get('/delivery',[CustomerController::class,'delivery'])->name('delivery');
     Route::post('/store', [CartController::class,'storeToCart'])->name('storeToCart');
     Route::put('/cart-items/{id}', [CartItemController::class, 'updateQuantity'])->name('quantity');
     Route::delete('/cart-items/{id}', [CartItemController::class, 'deleteItems'])->name('removeItem');

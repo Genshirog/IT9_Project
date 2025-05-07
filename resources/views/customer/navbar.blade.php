@@ -6,6 +6,7 @@
     <ul class="flex space-x-6 items-center">
         <li><a href="{{ route('customer.index') }}" class="text-gray-700 hover:text-blue-600"><i class="fas fa-home mr-2"></i>Home</a></li>
         <li><a href="{{ route('customer.cart') }}" class="text-gray-700 hover:text-blue-600"><i class="fas fa-shopping-cart mr-2"></i>Cart</a></li>
+        <li><a href="{{ route('customer.delivery') }}" class="text-gray-700 hover:text-blue-600"><i class="fas fa-truck mr-2"></i>Delivery</a></li>
         <li><a href="#" class="text-gray-700 hover:text-blue-600"><i class="fas fa-history mr-2"></i>Order History</a></li>
         <li class="relative">
             <button id="userButton" class="flex items-center text-gray-700 hover:text-blue-600 focus:outline-none">

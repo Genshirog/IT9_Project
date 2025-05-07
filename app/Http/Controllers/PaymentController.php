@@ -16,7 +16,7 @@ class PaymentController extends Controller
         $user = Auth::user();
         $cart = Cart::where('UserID', $user->UserID)->first();
         $cartItems = CartItem::where('CartID',$cart->CartID)->get();
-        if ($request->amountPayed < $cart->totalPrice) {
+        if ($request->amountPayed < $cart->totalPrice && $request->paymentMethod == 'gcash') {
             return back()->withErrors(['amountPayed' => 'Insufficient payment. Please enter the full amount.'])->withInput();
         }else{
             DB::transaction(function () use ($user, $cart,$cartItems,$request) {

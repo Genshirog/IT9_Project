@@ -11,10 +11,12 @@ class CustomerController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $recommendations = Product::whereNotIn('category', ['Desert','Beverage'])
-        ->inRandomOrder()
-        ->take(3)
-        ->get();
+        $topProductNames = DB::table('best_selling_products')
+            ->select('productName')
+            ->limit(3)
+            ->pluck('productName'); // This gives you a plain array of names
+
+        $recommendations = Product::whereIn('productName', $topProductNames)->get();
 
         $available = Product::whereNotIn('category', ['Desert', 'Beverage'])
                         ->take(6)
@@ -32,6 +34,12 @@ class CustomerController extends Controller
     }
 
     public function cart(){
+        $user = Auth::user();
+        $cartItems = DB::table('items_view')->get();
+        return view('customer.cart',compact('user','cartItems'));
+    }
+
+    public function delivery(){
         $user = Auth::user();
         $cartItems = DB::table('items_view')->get();
         return view('customer.cart',compact('user','cartItems'));
