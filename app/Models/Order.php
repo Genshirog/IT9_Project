@@ -9,7 +9,9 @@ class Order extends Model
     protected $primaryKey = 'OrderID';
     protected $fillable = [
         'UserID',
-        'totalPrice'
+        'totalPrice',
+        'status',
+        'deliveryType'
     ];
 
     public $timestamps = false;

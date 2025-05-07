@@ -7,7 +7,7 @@
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
 </head>
-<body class="bg-[#094047]">
+<body class="bg-[#094047] text-white">
     <div class="flex">
         @include('admin.sidebar')
         <div class="flex-1 p-6">

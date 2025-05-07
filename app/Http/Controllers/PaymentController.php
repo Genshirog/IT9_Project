@@ -23,7 +23,9 @@ class PaymentController extends Controller
                 // Create Order
                 $order = Order::create([
                     'UserID' => $user->UserID,
-                    'totalPrice' => $cart->totalPrice
+                    'totalPrice' => $cart->totalPrice,
+                    'status' => 'Preparing',
+                    'deliveryType' => 'Delivery'
                 ]);
 
                 foreach ($cartItems as $item) {
