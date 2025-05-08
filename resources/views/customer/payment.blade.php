@@ -68,7 +68,7 @@
             <input type="hidden" name="paymentMethod" value="cash">
         </form>
         <div x-show="showCashForm" x-cloak class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center overflow-auto" x-init="setTimeout(() => showCashForm = false, 6000)">
-            <div class="bg-white rounded-lg p-8 w-96 max-h-[90vh] overflow-y-auto text-center shadow-lg transform transition-all duration-300 ease-in-out">
+            <div class="bg-white rounded-lg p-8 w-96 max-h-[90vh] overflow-y-auto text-center shadow-lg transform transition-all duration-500 ease-in-out">
                 <span class="text-lg font-medium text-gray-700 mb-6 block"> Your order has been placed. Please prepare your cash payment.</span>
                 <h1 class="text-2xl font-semibold text-gray-700 flex items-center justify-center mb-6">
                     <i class="fas fa-money-bill-wave text-green-500 mr-2"></i>

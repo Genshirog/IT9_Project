@@ -80,15 +80,8 @@
     <div class="container mx-auto my-6">
         <h1 class="text-2xl font-bold mb-4">Available Dishes:</h1>
         <h2 class="text-xl font-bold mb-4">Name of the Dish Selection</h2>
-        
-        
-        @php
-            $availableChunks = $available->chunk(3);
-        @endphp
-        
-        @foreach ($availableChunks as $chunk)
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                @foreach ($chunk as $product)
+                @foreach ($available as $product)
                         <div x-data="{ open: false }">
                             <div @click="open = true" class="bg-white rounded-lg shadow flex h-24 cursor-pointer transform transition-transform duration-300 hover:scale-105">
                                 <div class="p-4 flex-1">
@@ -140,19 +133,15 @@
                         </div>
                 @endforeach
             </div>
-        @endforeach
+            <div class="mt-4">
+                {{ $available->links() }}
+            </div>
 
 
     <div class="container mx-auto my-6">
-        <h2 class="text-xl font-bold mb-4">Roasted Dishes</h2>
-        
-        @php
-            $Availroasted = $roasted->chunk(3);
-        @endphp
-
-        @foreach ($Availroasted as $chunk)
+        <h2 class="text-xl font-bold mb-4">Roasted Dishes</h2>      
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                @foreach ($chunk as $product)
+                @foreach ($roasted as $product)
                         <div x-data="{ open: false }">
                             <div @click="open = true" class="bg-white rounded-lg shadow flex h-24 cursor-pointer transform transition-transform duration-300 hover:scale-105">
                                 <div class="p-4 flex-1">
@@ -204,18 +193,15 @@
                         </div>
                 @endforeach
             </div>
-        @endforeach
+            <div class="mt-4">
+                {{ $roasted->links() }}
+            </div>
     </div>
-
-        @php
-            $AvailExtra = $extra->chunk(3);
-        @endphp
 
     <div class="container mx-auto my-6">
         <h2 class="text-xl font-bold mb-4">Add-ons & Specials</h2>
-        @foreach ($AvailExtra as $chunk)
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-                @foreach ($chunk as $product)
+                @foreach ($extra as $product)
                         <div x-data="{ open: false }">
                             <div @click="open = true" class="bg-white rounded-lg shadow flex h-24 cursor-pointer transform transition-transform duration-300 hover:scale-105">
                                 <div class="p-4 flex-1">
@@ -267,7 +253,9 @@
                         </div>
                 @endforeach
             </div>
-        @endforeach
+            <div class="mt-4">
+                {{ $extra->links() }}
+            </div>
     </div>
 </body>
 </html>

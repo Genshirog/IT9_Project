@@ -53,6 +53,7 @@ Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(functio
     Route::prefix('site')->name('site.')->group(function () {
         Route::get('/edit', [StaffController::class, 'edit'])->name('edit');
         Route::post('/status/{id}',[PaymentController::class, 'status'])->name('status');
+        Route::put('/orders/{id}/status', [StaffController::class, 'updateStatus'])->name('updateStatus');
     });
 
     // Graph-related routes
@@ -70,4 +71,5 @@ Route::prefix('/customer')->name('customer.')->middleware('checkrole:3')->group(
     Route::put('/cart-items/{id}', [CartItemController::class, 'updateQuantity'])->name('quantity');
     Route::delete('/cart-items/{id}', [CartItemController::class, 'deleteItems'])->name('removeItem');
     Route::post('/payment',[PaymentController::class, 'payment'])->name('payment');
+    Route::get('/history',[CustomerController::class, 'history'])->name('history');
 });

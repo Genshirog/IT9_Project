@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 class StaffController extends Controller
@@ -65,8 +66,11 @@ class StaffController extends Controller
     }
     public function edit(){
         $user = Auth::user();
-        $orders = DB::select("SELECT * FROM unpaid_payment_view");
-        return view('staff.site.edit',compact('user','orders'));
+        $orders = DB::table('order_view')
+            ->where('orderStatus', '<>', 'Delivered')
+            ->get();
+        $unpay = DB::table('unpaid_payment_view')->get();
+        return view('staff.site.edit',compact('user','orders','unpay'));
     }
     public function bar(){
         $user = Auth::user();
@@ -84,5 +88,26 @@ class StaffController extends Controller
         $weeklySales = DB::table('weekly_sales_view')->get();
         $monthlySales = DB::table('monthly_sales_view')->get();
         return view('staff.graph.line',compact('user','dailySales', 'weeklySales', 'monthlySales'));
+    }
+
+    public function updateStatus(Request $request, $id){
+        $user = Auth::user();
+        $order = Order::findOrFail($id);
+        $payment = Payment::where('OrderID', $order->OrderID)->first();
+        switch($order->status){
+            case 'Preparing':
+                $order->status = 'Serving';
+                break;
+            case 'Serving':
+                if ($payment->status == 'Unpaid') {
+                    return back()->with('error', 'Pay up first');
+                }
+                $order->status = 'Delivered';
+                break;
+        }
+            $order->save();
+        
+
+        return back();
     }
 }

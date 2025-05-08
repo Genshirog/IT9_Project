@@ -13,7 +13,7 @@
     <div class="flex items-center justify-center min-h-screen">
         <div class="w-full max-w-7xl p-6" x-data="{ openModal: false }"> <!-- Alpine data for the modal state -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @foreach ($cartItems as $product)
+                @forelse ($cartItems as $product)
                     <div class="bg-white rounded-lg shadow-lg flex flex-col items-center p-6 transform transition-transform duration-300 hover:scale-105">
                         <div class="flex items-center justify-center w-full">
                             <img src="{{ asset('storage/'. $product->image) }}" alt="Image of {{ $product->productName }}" class="h-32 w-32 object-cover rounded-lg">
@@ -51,13 +51,12 @@
                             </form>
                         </div>
                     </div>
-                @endforeach
+                    @empty
+                    <div class="p-4 col-span-full">
+                            <p class="text-center text-gray-500">Your cart is empty.</p>
+                        </div>
+                    @endforelse
             </div>
-            @if ($cartItems->isEmpty())
-                <div class="p-4">
-                        <p class="text-center text-gray-500">Your cart is empty.</p>
-                </div>
-            @endif
         </div>
     </div>
     @include('customer.payment')
