@@ -64,6 +64,7 @@ Customer: Can browse and place orders
 
 ### Database Schema
 ***Users***
+```
 -UserID
 -firstname
 -lastname
@@ -77,6 +78,7 @@ Customer: Can browse and place orders
 -image
 
 ***Products***
+```
 -ProductID
 -productName
 -category
@@ -85,11 +87,13 @@ Customer: Can browse and place orders
 -image
 
 ***Roles***
+```
 -RoleID
 -roleName 
 -roleDescription
 
 ***Orders***
+```
 -OrderID
 -orderDate
 -UserID
@@ -98,6 +102,7 @@ Customer: Can browse and place orders
 -status
 
 ***OrderItems***
+```
 -OrderItemsID
 -OrderID
 -ProductID
@@ -105,6 +110,7 @@ Customer: Can browse and place orders
 -subTotal
 
 ***Payments***
+```
 -PaymentID
 -OrderID
 -amountPayed
@@ -113,12 +119,14 @@ Customer: Can browse and place orders
 -status
 
 ***Carts(Temporary Table)***
+```
 -CartID
 -orderDate
 -UserID
 -totalPrice
 
 ***CartItems(Temporary Table)***
+```
 -CartItemsID
 -CartID
 -ProductID
