@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Dashboard</title>
+    @include('icon')
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
 </head>
@@ -99,5 +99,6 @@
             lineChart.update();
         });
     </script>
+    @include('footer')
 </body>
 </html>

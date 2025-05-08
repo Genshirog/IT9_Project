@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    @include('icon')
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -73,5 +73,6 @@
             </div>
         </div>
     </div>
+    @include('footer')
 </body>
 </html>

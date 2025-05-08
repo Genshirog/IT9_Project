@@ -6,7 +6,7 @@
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <script src="{{ asset('js/alpine.min.js') }}" defer></script>
     <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
-    <title>Document</title>
+    @include('icon')
 </head>
 <body class="bg-[#fef8f8]">
     @include('customer.navbar')
@@ -257,5 +257,6 @@
                 {{ $extra->links() }}
             </div>
     </div>
+    @include('footer')
 </body>
 </html>

@@ -6,7 +6,7 @@
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <script src="{{ asset('js/alpine.min.js') }}" defer></script>
     <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
-    <title>Document</title>
+    @include('icon')
 </head>
 <body class="bg-[#fef8f8]">
     @include('customer.navbar')
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     @empty
-                    <div class="p-4 col-span-full">
+                        <div class="p-4 col-span-full">
                             <p class="text-center text-gray-500">Your cart is empty.</p>
                         </div>
                     @endforelse
@@ -60,5 +60,6 @@
         </div>
     </div>
     @include('customer.payment')
+    @include('footer')
 </body>
 </html>
