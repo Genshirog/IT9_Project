@@ -76,7 +76,7 @@ Customer: Can browse and place orders
 -contactNumber
 -birthday
 -image
-
+```
 ***Products***
 ```
 -ProductID
@@ -85,13 +85,13 @@ Customer: Can browse and place orders
 -price
 -productDescription
 -image
-
+```
 ***Roles***
 ```
 -RoleID
 -roleName 
 -roleDescription
-
+```
 ***Orders***
 ```
 -OrderID
@@ -100,7 +100,7 @@ Customer: Can browse and place orders
 -totalPrice
 -deliveryType
 -status
-
+```
 ***OrderItems***
 ```
 -OrderItemsID
@@ -108,7 +108,7 @@ Customer: Can browse and place orders
 -ProductID
 -quantity
 -subTotal
-
+```
 ***Payments***
 ```
 -PaymentID
@@ -117,14 +117,14 @@ Customer: Can browse and place orders
 -amountChanged
 -paymentMethod
 -status
-
+```
 ***Carts(Temporary Table)***
 ```
 -CartID
 -orderDate
 -UserID
 -totalPrice
-
+```
 ***CartItems(Temporary Table)***
 ```
 -CartItemsID
@@ -132,7 +132,7 @@ Customer: Can browse and place orders
 -ProductID
 -quantity
 -subTotal
-
+```
 
 ## Who are the Developers?
 
