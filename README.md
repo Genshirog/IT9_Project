@@ -1,6 +1,6 @@
 ## About BBQ Lagao
 
-BBQ~Lagao at Beef Pares was the first business Arc-Based Solution conducted interview with and used their business as our model on different subjects this includes our IT6(Database),IT7(Figma),and IT9aL(Web Dev). so far Arc-Based Solution has created multiple systems using BBQ~Lagao's name and it will continue to develop numerous systems for the business.
+BBQ\~Lagao at Beef Pares was the first business Arc-Based Solution conducted interview with and used their business as our model on different subjects this includes our IT6(Database),IT7(Figma),and IT9aL(Web Dev). so far Arc-Based Solution has created multiple systems using BBQ~Lagao's name and it will continue to develop numerous systems for the business.
 
 - [IT6 Database](https://github.com/Genshirog/bbq_pares/).
 - [IT7 Figma](https://www.figma.com/design/LY6kMVeuK8BgNXF9slbuYk/IT7L_PROTOTYPE?m=auto&t=LMC1Xz8dpmR4HsND-6).
@@ -63,7 +63,7 @@ Staff: Can manage orders and view sales
 Customer: Can browse and place orders
 
 ### Database Schema
-Users
+***Users***
 -UserID
 -firstname
 -lastname
@@ -76,7 +76,7 @@ Users
 -birthday
 -image
 
-Products
+***Products***
 -ProductID
 -productName
 -category
@@ -84,12 +84,12 @@ Products
 -productDescription
 -image
 
-Roles
+***Roles***
 -RoleID
 -roleName 
 -roleDescription
 
-Orders
+***Orders***
 -OrderID
 -orderDate
 -UserID
@@ -97,14 +97,14 @@ Orders
 -deliveryType
 -status
 
-OrderItems
+***OrderItems***
 -OrderItemsID
 -OrderID
 -ProductID
 -quantity
 -subTotal
 
-Payments
+***Payments***
 -PaymentID
 -OrderID
 -amountPayed
@@ -112,13 +112,13 @@ Payments
 -paymentMethod
 -status
 
-Carts(Temporary Table)
+***Carts(Temporary Table)***
 -CartID
 -orderDate
 -UserID
 -totalPrice
 
-CartItems(Temporary Table)
+***CartItems(Temporary Table)***
 -CartItemsID
 -CartID
 -ProductID
