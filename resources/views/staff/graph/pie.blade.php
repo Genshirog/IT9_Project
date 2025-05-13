@@ -28,20 +28,34 @@
     <script src="{{ asset('js/chart.umd.min.js') }}"></script>
     <script>
         // Fetch best seller data passed from the controller
-        const bestSellers = @json($bestSellers);
-
-        // Group total sales per product
+        const rawBestSellers = @json($bestSellers);
+        console.log("Raw data from controller:", rawBestSellers);
+        
+        // Properly group sales by product name using simple addition
         const productSalesMap = {};
-        bestSellers.forEach(item => {
-            if (!productSalesMap[item.productName]) {
-                productSalesMap[item.productName] = 0;
+        
+        // Process each row from the database
+        rawBestSellers.forEach(item => {
+            const productName = item.productName;
+            // Convert to number and ensure it's an actual number
+            const quantity = Number(item.totalSold);
+            
+            // Initialize if first time seeing this product
+            if (!productSalesMap[productName]) {
+                productSalesMap[productName] = 0;
             }
-            productSalesMap[item.productName] += item.totalSold;
+            
+            // Add the EXACT quantity from this record (no multipliers)
+            productSalesMap[productName] += quantity;
         });
-
+        
+        console.log("Aggregated product sales:", productSalesMap);
+        
+        // Extract labels and data for the chart
         const labels = Object.keys(productSalesMap);
         const data = Object.values(productSalesMap);
-
+        
+        // Generate colors (one per product)
         function getRandomColor() {
             const letters = '0123456789ABCDEF';
             let color = '#';
@@ -50,16 +64,17 @@
             }
             return color;
         }
-
+        
         const colors = labels.map(() => getRandomColor());
-
+        
+        // Setup the chart with the correct data
         const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
         const bestSellersChart = new Chart(bsCtx, {
             type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Total Sales',
+                    label: 'Units Sold',
                     data: data,
                     backgroundColor: colors,
                     borderColor: 'white',
@@ -74,6 +89,16 @@
                     }
                 },
                 plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                // Show the actual units sold, not calculated values
+                                return `${label}: ${value} units`;
+                            }
+                        }
+                    },
                     legend: {
                         position: 'right',
                         labels: {
@@ -83,7 +108,7 @@
                             usePointStyle: true
                         },
                         align: 'center',
-                        maxHeight: 300 // optional: limits height
+                        maxHeight: 300
                     }
                 }
             }

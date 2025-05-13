@@ -15,7 +15,7 @@
             @if($payments->isNotEmpty())
             <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col">
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-2xl font-bold text-gray-800">Order Status Table</h1>
+                    <h1 class="text-2xl font-bold text-gray-800">Payment Status Table</h1>
                 </div>
                 <div class="overflow-auto flex-grow">
                     <table class="min-w-full table-auto border border-gray-200 text-sm">

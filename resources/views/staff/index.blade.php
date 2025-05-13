@@ -117,10 +117,12 @@
         const productSalesMap = {};
         
         bestSellers.forEach(item => {
-            if (!productSalesMap[item.productName]) {
-                productSalesMap[item.productName] = 0;
+            const productName = item.productName;
+            const quantity = Number(item.totalSold);
+            if (!productSalesMap[productName]) {
+                productSalesMap[productName] = 0;
             }
-            productSalesMap[item.productName] += item.totalSold;
+            productSalesMap[productName] += quantity;
         });
 
         const pieLabels = Object.keys(productSalesMap);
@@ -172,7 +174,7 @@
         const totalSalesPerProduct = products.map(product => {
             return bestSellers
                 .filter(item => item.productName === product)
-                .reduce((sum, item) => sum + item.totalSold, 0);
+                .reduce((sum, item) => sum + Number(item.totalSold), 0);
         });
 
         // Set up Bar Chart

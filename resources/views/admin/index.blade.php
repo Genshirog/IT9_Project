@@ -115,16 +115,18 @@
         // ==== Best Selling Products Pie Chart ====
         const bestSellers = @json($bestSellers);
         const productSalesMap = {};
-        
+
         bestSellers.forEach(item => {
-            if (!productSalesMap[item.productName]) {
-                productSalesMap[item.productName] = 0;
+            const productName = item.productName;
+            const quantity = Number(item.totalSold);
+            if (!productSalesMap[productName]) {
+                productSalesMap[productName] = 0;
             }
-            productSalesMap[item.productName] += item.totalSold;
+            productSalesMap[productName] += quantity;
         });
 
-        const pieLabels = Object.keys(productSalesMap);
-        const pieData = Object.values(productSalesMap);
+        const labels = Object.keys(productSalesMap);
+        const data = Object.values(productSalesMap);
 
         function getRandomColor() {
             const letters = '0123456789ABCDEF';
@@ -135,24 +137,38 @@
             return color;
         }
 
-        const pieColors = pieLabels.map(() => getRandomColor());
+        const colors = labels.map(() => getRandomColor());
 
         const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
         const bestSellersChart = new Chart(bsCtx, {
             type: 'pie',
             data: {
-                labels: pieLabels,
+                labels: labels,
                 datasets: [{
-                    label: 'Total Sales',
-                    data: pieData,
-                    backgroundColor: pieColors,
+                    label: 'Units Sold',
+                    data: data,
+                    backgroundColor: colors,
                     borderColor: 'white',
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
+                layout: {
+                    padding: {
+                        right: 50
+                    }
+                },
                 plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: ${value} units`;
+                            }
+                        }
+                    },
                     legend: {
                         position: 'right',
                         labels: {
@@ -160,7 +176,9 @@
                             boxWidth: 20,
                             padding: 15,
                             usePointStyle: true
-                        }
+                        },
+                        align: 'center',
+                        maxHeight: 300
                     }
                 }
             }
@@ -172,7 +190,7 @@
         const totalSalesPerProduct = products.map(product => {
             return bestSellers
                 .filter(item => item.productName === product)
-                .reduce((sum, item) => sum + item.totalSold, 0);
+                .reduce((sum, item) => sum + Number(item.totalSold), 0);
         });
 
         // Set up Bar Chart

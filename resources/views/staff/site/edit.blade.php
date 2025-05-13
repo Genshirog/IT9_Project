@@ -75,8 +75,8 @@
                     </div>
                 </div>
                 <div class="flex space-x-4 mb-4">
-                    <button onclick="showTable('paymentTable')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Payment Status</button>
-                    <button onclick="showTable('orderTable')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order Status</button>
+                    <button id="btn-payment" onclick="showTable('paymentTable')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Payment Status</button>
+                    <button id="btn-order" onclick="showTable('orderTable')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order Status</button>
                 </div>
                 <div id="paymentTable" class="table-section">
                     <div class="overflow-x-auto max-w-full">
@@ -103,7 +103,7 @@
                                             <input type="hidden" name="OrderID" value="{{ $order->OrderID }}">
                                             <input type="hidden" name="status" value="Paid">
                                             <input type="number" name="amountPayed" class="border rounded px-2 py-1 w-32" required placeholder="₱" min="0" step="0.01">
-                                            <button type="submit" class="ml-2 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Pay</button>
+                                            <button type="submit" class="ml-2 bg-indigo-500 text-white px-3 py-1 rounded hover:bg-green-600">Pay</button>
                                         </form>
                                         @error('amountPayed')
                                             <p class="text-red-500 text-sm mt-1">{{ $errors->first('amountPayed') }}</p>
@@ -144,7 +144,7 @@
                                         @csrf
                                         @method('PUT')
                                         <button
-                                            class="bg-indigo-500 hover:bg-indigo-600 text-white text-xs px-3 py-1 rounded"
+                                            class="bg-indigo-500 hover:bg-green-600 text-white text-xs p-4 rounded"
                                             type="submit">
                                             Next Status
                                         </button>
@@ -162,9 +162,31 @@
 </body>
 <script>
     function showTable(tableId) {
-        const sections = document.querySelectorAll('.table-section');
-        sections.forEach(section => section.classList.add('hidden'));
+        // Hide all table sections
+        document.querySelectorAll('.table-section').forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        // Show selected table
         document.getElementById(tableId).classList.remove('hidden');
+
+        // Update button styles
+        const btnPayment = document.getElementById('btn-payment');
+        const btnOrder = document.getElementById('btn-order');
+
+        if (tableId === 'paymentTable') {
+            btnPayment.classList.remove('bg-green-500', 'hover:bg-green-600');
+            btnPayment.classList.add('bg-blue-500', 'hover:bg-blue-600');
+
+            btnOrder.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+            btnOrder.classList.add('bg-green-500', 'hover:bg-green-600');
+        } else {
+            btnOrder.classList.remove('bg-green-500', 'hover:bg-green-600');
+            btnOrder.classList.add('bg-blue-500', 'hover:bg-blue-600');
+
+            btnPayment.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+            btnPayment.classList.add('bg-green-500', 'hover:bg-green-600');
+        }
     }
 </script>
 </html>

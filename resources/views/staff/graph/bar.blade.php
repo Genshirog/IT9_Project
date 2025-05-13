@@ -48,7 +48,7 @@
             const totalSalesPerProduct = products.map(product => {
                 return bestSellers
                     .filter(item => item.productName === product)
-                    .reduce((sum, item) => sum + item.totalSold, 0);
+                    .reduce((sum, item) => sum + Number(item.totalSold), 0);
             });
             
             // Generate colors for each product
