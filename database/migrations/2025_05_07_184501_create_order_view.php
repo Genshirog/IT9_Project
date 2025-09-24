@@ -28,6 +28,7 @@ return new class extends Migration
             orders.orderDate
             FROM payments
             JOIN orders ON payments.OrderID = orders.OrderID
+            WHERE payments.status = 'Paid'
         ");
     }
 

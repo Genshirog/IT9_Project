@@ -7,7 +7,7 @@
     <script src="{{ asset('js/tailwind.js')}}"></script>
     <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
 </head>
-<body class="bg-[#094047] text-white">
+<body class="bg-[#fef8f8] text-dark">
     <div class="flex">
         @include('admin.sidebar')
 
@@ -18,7 +18,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- Sales Overview -->
-                <div class="bg-[#0c5560] rounded-lg shadow-lg p-6">
+                <div class="rounded-lg shadow-lg p-6" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
                     <h2 class="text-2xl font-semibold mb-4">Sales Overview</h2>
                     <form id="chartForm" class="mb-4">
                         <label for="chartType" class="mr-2">Time Period:</label>
@@ -34,7 +34,7 @@
                 </div>
 
                 <!-- Best Selling Products -->
-                <div class="bg-[#0c5560] rounded-lg shadow-lg p-6">
+                <div class="rounded-lg shadow-lg p-6" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
                     <h2 class="text-2xl font-semibold mb-4">Best Selling Products</h2>
                     <div class="flex justify-center items-center h-80">
                         <div class="w-full max-w-md">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-[#0c5560] rounded-lg shadow-lg p-6 mt-8 w-full">
+            <div class="rounded-lg shadow-lg p-6 mt-8 w-full" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
                 <h2 class="text-2xl font-semibold mb-4">Product Sales Comparison</h2>
                 <div class="h-80">
                     <canvas id="totalSalesBarChart" class="w-full h-full"></canvas>
@@ -54,7 +54,7 @@
 
     <!-- Chart.js -->
     <script src="{{ asset('js/chart.umd.min.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script>
         // ==== Sales Overview Line Chart ====
         const dailySales = @json($dailySales);
@@ -141,48 +141,48 @@
 
         const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
         const bestSellersChart = new Chart(bsCtx, {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Units Sold',
-                    data: data,
-                    backgroundColor: colors,
-                    borderColor: 'white',
-                    borderWidth: 1
-                }]
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Units Sold',
+            data: data,
+            backgroundColor: colors,
+            borderColor: 'white',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                enabled: false // disables hover tooltips completely
             },
-            options: {
-                responsive: true,
-                layout: {
-                    padding: {
-                        right: 50
-                    }
+            legend: {
+                position: 'right',
+                labels: {
+                    color: 'white',
+                    boxWidth: 20,
+                    padding: 15,
+                    usePointStyle: true
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                return `${label}: ${value} units`;
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            color: 'white',
-                            boxWidth: 20,
-                            padding: 15,
-                            usePointStyle: true
-                        },
-                        align: 'center',
-                        maxHeight: 300
-                    }
+                align: 'center',
+                maxHeight: 300
+            },
+            datalabels: {
+                color: 'white',
+                font: {
+                    weight: 'bold',
+                    size: 14
+                },
+                formatter: (value, context) => {
+                    return `${value} units`; // always display value
                 }
             }
-        });
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
 
         // ==== Total Sales Bar Chart ====
         // Extract product names and sales data from bestSellers

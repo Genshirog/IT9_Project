@@ -26,6 +26,7 @@
     </div>
     <!-- Best Sellers Chart Script -->
     <script src="{{ asset('js/chart.umd.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script>
         // Fetch best seller data passed from the controller
         const rawBestSellers = @json($bestSellers);
@@ -70,49 +71,48 @@
         // Setup the chart with the correct data
         const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
         const bestSellersChart = new Chart(bsCtx, {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Units Sold',
-                    data: data,
-                    backgroundColor: colors,
-                    borderColor: 'white',
-                    borderWidth: 1
-                }]
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Units Sold',
+            data: data,
+            backgroundColor: colors,
+            borderColor: 'white',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                enabled: false // disables hover tooltips completely
             },
-            options: {
-                responsive: true,
-                layout: {
-                    padding: {
-                        right: 50
-                    }
+            legend: {
+                position: 'right',
+                labels: {
+                    color: 'white',
+                    boxWidth: 20,
+                    padding: 15,
+                    usePointStyle: true
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                // Show the actual units sold, not calculated values
-                                return `${label}: ${value} units`;
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            color: 'white',
-                            boxWidth: 20,
-                            padding: 15,
-                            usePointStyle: true
-                        },
-                        align: 'center',
-                        maxHeight: 300
-                    }
+                align: 'center',
+                maxHeight: 300
+            },
+            datalabels: {
+                color: 'white',
+                font: {
+                    weight: 'bold',
+                    size: 14
+                },
+                formatter: (value, context) => {
+                    return `${value} units`; // always display value
                 }
             }
-        });
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
     </script>
     @include('footer')
 </body>

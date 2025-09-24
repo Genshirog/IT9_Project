@@ -54,7 +54,7 @@
 
     <!-- Chart.js -->
     <script src="{{ asset('js/chart.umd.min.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script>
         // ==== Sales Overview Line Chart ====
         const dailySales = @json($dailySales);
@@ -115,7 +115,7 @@
         // ==== Best Selling Products Pie Chart ====
         const bestSellers = @json($bestSellers);
         const productSalesMap = {};
-        
+
         bestSellers.forEach(item => {
             const productName = item.productName;
             const quantity = Number(item.totalSold);
@@ -125,8 +125,8 @@
             productSalesMap[productName] += quantity;
         });
 
-        const pieLabels = Object.keys(productSalesMap);
-        const pieData = Object.values(productSalesMap);
+        const labels = Object.keys(productSalesMap);
+        const data = Object.values(productSalesMap);
 
         function getRandomColor() {
             const letters = '0123456789ABCDEF';
@@ -137,36 +137,52 @@
             return color;
         }
 
-        const pieColors = pieLabels.map(() => getRandomColor());
+        const colors = labels.map(() => getRandomColor());
 
         const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
         const bestSellersChart = new Chart(bsCtx, {
-            type: 'pie',
-            data: {
-                labels: pieLabels,
-                datasets: [{
-                    label: 'Total Sales',
-                    data: pieData,
-                    backgroundColor: pieColors,
-                    borderColor: 'white',
-                    borderWidth: 1
-                }]
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Units Sold',
+            data: data,
+            backgroundColor: colors,
+            borderColor: 'white',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                enabled: false // disables hover tooltips completely
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                        labels: {
-                            color: 'white',
-                            boxWidth: 20,
-                            padding: 15,
-                            usePointStyle: true
-                        }
-                    }
+            legend: {
+                position: 'right',
+                labels: {
+                    color: 'white',
+                    boxWidth: 20,
+                    padding: 15,
+                    usePointStyle: true
+                },
+                align: 'center',
+                maxHeight: 300
+            },
+            datalabels: {
+                color: 'white',
+                font: {
+                    weight: 'bold',
+                    size: 14
+                },
+                formatter: (value, context) => {
+                    return `${value} units`; // always display value
                 }
             }
-        });
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
 
         // ==== Total Sales Bar Chart ====
         // Extract product names and sales data from bestSellers

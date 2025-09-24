@@ -1,4 +1,4 @@
-<div class="sticky top-0 w-52 h-screen bg-[#18303c] rounded-xl shadow-lg p-5 flex flex-col justify-between">
+<div class="sticky top-0 w-52 h-screen rounded-xl shadow-lg p-5 flex flex-col justify-between" style="background: linear-gradient(to bottom, #F27070 0%, #E93C3C 30%)">
         <div class="w-full mt-6">
             <ul class="space-y-4">
                 <div class="text-center p-3">
@@ -12,16 +12,16 @@
                 <li>
                     <p class="text-white font-semibold"><i class="fas fa-user mr-2"></i>Users</p>
                     <ul class="ml-4 mt-2 space-y-2">
-                        <li><a href="{{ route('admin.user.add') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-user-plus mr-2"></i>Add User</a></li>
-                        <li><a href="{{ route('admin.user.search') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-search mr-2"></i>Search User</a></li>
+                        <li><a href="{{ route('admin.user.add') }}" class="text-white hover:text-blue-400"><i class="fas fa-user-plus mr-2"></i>Add User</a></li>
+                        <li><a href="{{ route('admin.user.search') }}" class="text-white hover:text-blue-400"><i class="fas fa-search mr-2"></i>Search User</a></li>
                     </ul>
                 </li>
                 <li>
                     <p class="text-white font-semibold"><i class="fas fa-cogs mr-2"></i>Graphs</p>
                     <ul class="ml-4 mt-2 space-y-2">
-                        <li><a href="{{ route('admin.graph.bar') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-chart-bar mr-2"></i>Bar Graph</a></li>
-                        <li><a href="{{ route('admin.graph.line') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-chart-line mr-2"></i>Line Graph</a></li>
-                        <li><a href="{{ route('admin.graph.pie') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-chart-pie mr-2"></i>Pie Graph</a></li>
+                        <li><a href="{{ route('admin.graph.bar') }}" class="text-white hover:text-blue-400"><i class="fas fa-chart-bar mr-2"></i>Bar Graph</a></li>
+                        <li><a href="{{ route('admin.graph.line') }}" class="text-white hover:text-blue-400"><i class="fas fa-chart-line mr-2"></i>Line Graph</a></li>
+                        <li><a href="{{ route('admin.graph.pie') }}" class="text-white hover:text-blue-400"><i class="fas fa-chart-pie mr-2"></i>Pie Graph</a></li>
                     </ul>
                 </li>
             </ul>
