@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             $table->foreign('OrderID')->references('OrderID')->on('orders');
-            $table->foreign('ProductID')->references('ProductID')->on('products');
+            $table->foreign('MovementID')->references('MovementID')->on('movement');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             $table->dropForeign(['OrderID']);
-            $table->dropForeign(['ProductID']);
+            $table->dropForeign(['MovementID']);
         });
     }
 };

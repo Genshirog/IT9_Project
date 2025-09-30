@@ -40,6 +40,10 @@
                             <label class="text-white mb-1">Password</label>
                             <input type="password" name="password" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password">
                         </div>
+                        <div class="flex flex-col">
+                            <label class="text-white mb-1">RoleID</label>
+                            <input type="text" name="roleID" class="p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password">
+                        </div>
                     </div>
 
                     <div class="flex justify-center pt-6">

@@ -11,6 +11,7 @@ class CartItemController extends Controller
         $cart = CartItem::findOrFail($id);
         $cart->quantity = $request->input('quantity');
         $cart->subTotal = $cart->quantity * $cart->product->price;
+        
         $cart->save();
         return back();
     }

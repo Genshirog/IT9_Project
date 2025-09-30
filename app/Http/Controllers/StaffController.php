@@ -110,4 +110,11 @@ class StaffController extends Controller
 
         return back();
     }
+
+    public function restock(){
+        $user = Auth::user();
+        $inventoryTable = DB::table("inventory_view")->get();
+        return view('staff.product.restock', compact('user', 'inventoryTable'));
+    }
+
 }

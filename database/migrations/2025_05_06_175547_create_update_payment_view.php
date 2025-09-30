@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement("DROP VIEW IF EXISTS unpaid_payment_view");
         DB::statement("
         CREATE VIEW unpaid_payment_view AS
         SELECT
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("DROP VIEW unpaid_payment_view");
+        DB::statement("DROP VIEW IF EXISTS unpaid_payment_view");
     }
 };

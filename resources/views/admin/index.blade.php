@@ -18,7 +18,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- Sales Overview -->
-                <div class="rounded-lg shadow-lg p-6" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
+                <div class="bg-[#BF2431] rounded-lg shadow-lg p-6">
                     <h2 class="text-2xl font-semibold mb-4">Sales Overview</h2>
                     <form id="chartForm" class="mb-4">
                         <label for="chartType" class="mr-2">Time Period:</label>
@@ -34,7 +34,7 @@
                 </div>
 
                 <!-- Best Selling Products -->
-                <div class="rounded-lg shadow-lg p-6" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
+                <div class="bg-[#BF2431] rounded-lg shadow-lg p-6">
                     <h2 class="text-2xl font-semibold mb-4">Best Selling Products</h2>
                     <div class="flex justify-center items-center h-80">
                         <div class="w-full max-w-md">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="rounded-lg shadow-lg p-6 mt-8 w-full" style="background: linear-gradient(to right, #F27070 0%, #E93C3C 30%)">
+            <div class="bg-[#BF2431] rounded-lg shadow-lg p-6 mt-8 w-full">
                 <h2 class="text-2xl font-semibold mb-4">Product Sales Comparison</h2>
                 <div class="h-80">
                     <canvas id="totalSalesBarChart" class="w-full h-full"></canvas>

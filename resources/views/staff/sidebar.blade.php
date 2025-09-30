@@ -14,6 +14,7 @@
                     <ul class="ml-4 mt-2 space-y-2">
                         <li><a href="{{ route('staff.product.add') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-plus-circle mr-2"></i>Add Product</a></li>
                         <li><a href="{{ route('staff.product.search') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-search mr-2"></i>Check Product</a></li>
+                        <li><a href="{{ route('staff.product.restock') }}" class="text-gray-300 hover:text-blue-400"><i class="fas fa-plus mr-2"></i>Restock Product</a></li>
                     </ul>
                 </li>
                 <li>

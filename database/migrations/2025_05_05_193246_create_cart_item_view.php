@@ -12,10 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement("DROP VIEW IF EXISTS items_view");
         DB::statement("
         CREATE VIEW items_view AS
         SELECT 
             cart_items.CartID,
+            carts.UserID,
             cart_items.CartItemID,
             cart_items.ProductID,
             products.productName,
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("DROP VIEW items_view");
+        DB::statement("DROP VIEW IF EXISTS items_view");
     }
 };

@@ -19,6 +19,13 @@ class CartController extends Controller
 
         // 1. Check if there's a current OrderID in session
         $cartID = Session::get('CartID');
+        if (!$cartID) {
+            $existingCart = Cart::where('UserID', Auth::user()->UserID)->first();
+            if ($existingCart) {
+                $cartID = $existingCart->CartID;
+                Session::put('CartID', $cartID);
+            }
+        }
         $product = Product::find($validated['ProductID']);
         $totalPrice = $product->price * $validated['quantity'];
         

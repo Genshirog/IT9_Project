@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement("DROP VIEW IF EXISTS best_selling_products");
         DB::statement("
             CREATE VIEW best_selling_products AS
             SELECT 
@@ -21,7 +22,11 @@ return new class extends Migration
             FROM 
                 order_items
             JOIN 
-                products ON order_items.ProductID = products.ProductID
+                movement ON order_items.MovementID = movement.MovementID
+            JOIN 
+                inventory ON movement.InventoryID = inventory.InventoryID
+            JOIN 
+                products ON inventory.ProductID = products.ProductID
             JOIN 
                 orders ON order_items.OrderID = orders.OrderID
             GROUP BY 
@@ -37,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("DROP VIEW best_selling_products");
+        DB::statement("DROP VIEW IF EXISTS best_selling_products");
     }
 };

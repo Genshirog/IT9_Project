@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement("DROP VIEW IF EXISTS order_item_view");
         DB::statement("
         CREATE VIEW order_item_view AS
         SELECT 
             order_items.OrderID,
             order_items.OrderItemID,
-            order_items.ProductID,
+            inventory.ProductID,
             products.productName,
             products.price,
             products.productDescription,
@@ -24,7 +25,9 @@ return new class extends Migration
             products.image,
             order_items.subTotal
         FROM order_items
-        JOIN products ON order_items.ProductID = products.ProductID
+        JOIN movement ON order_items.MovementID = movement.MovementID
+        JOIN inventory ON movement.InventoryID = inventory.InventoryID
+        JOIN products ON inventory.ProductID = products.ProductID
         JOIN orders ON order_items.OrderID = orders.OrderID;
         ");
     }

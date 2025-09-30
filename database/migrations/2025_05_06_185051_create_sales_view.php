@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement("DROP VIEW IF EXISTS daily_sales_view");
+        DB::statement("DROP VIEW IF EXISTS weekly_sales_view");
+        DB::statement("DROP VIEW IF EXISTS monthly_sales_view");
+        
         DB::statement("
             CREATE VIEW daily_sales_view AS
             SELECT DATE(orderDate) as label, SUM(totalPrice) as total

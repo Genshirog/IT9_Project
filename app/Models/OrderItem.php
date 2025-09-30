@@ -9,7 +9,7 @@ class OrderItem extends Model
     protected $primaryKey = 'OrderItemID';
     protected $fillable = [
         'OrderID',
-        'ProductID',
+        'MovementID',
         'quantity',
         'subTotal'
     ];
@@ -20,7 +20,7 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class, 'OrderID');
     }
 
-    public function products(){
-        return $this->belongsTo(Product::class, 'ProductID');
+    public function movements(){
+        return $this->belongsTo(Movement::class, 'MovementID');
     }
 }

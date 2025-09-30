@@ -1,11 +1,11 @@
-<div class="sticky top-0 w-52 h-screen rounded-xl shadow-lg p-5 flex flex-col justify-between" style="background: linear-gradient(to bottom, #F27070 0%, #E93C3C 30%)">
+<div class="sticky top-0 w-52 h-screen rounded-xl shadow-lg p-5 flex flex-col justify-between bg-[#BF2431]">
         <div class="w-full mt-6">
             <ul class="space-y-4">
                 <div class="text-center p-3">
                     <h1 class="text-white font-bold text-2xl">BBQ LAGAO</h1>
                 </div>
                 <li><img src="{{ asset('storage/'.$user->image) }}" alt="Profile" class="w-20 h-20 rounded-full mx-auto object-cover" /></li>
-                <div class="text-center bg-[#1d3947] rounded-full mb-6">
+                <div class="text-center bg-[#A61E2A] rounded-full mb-6">
                     <li><a href="{{ route('admin.profile') }}" class="text-white hover:text-blue-500 uppercase"><i class="fas fa-cog mr-2"></i>{{ $user->username }}</a></li>
                 </div>
                 <li><a href="{{ route('admin.index') }}" class="text-white hover:text-blue-500"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a></li>

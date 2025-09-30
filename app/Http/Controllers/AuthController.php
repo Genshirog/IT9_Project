@@ -38,6 +38,12 @@ class AuthController extends Controller
                     return redirect()->route('staff.index');
                 case 3:
                     return redirect()->route('customer.index');
+                case 4:
+                    return redirect()->route('cashier.site.edit');
+                case 5:
+                    return redirect()->route('kitchen.site.edit');
+                case 6:
+                    return redirect()->route('inventory.site.edit');
                 default:
                     return redirect()->route('auth');
             }

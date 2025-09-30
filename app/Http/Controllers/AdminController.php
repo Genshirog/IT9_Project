@@ -58,19 +58,59 @@ class AdminController extends Controller
             'birthday' => 'required|date',
             'email' => 'required|email|unique:users,email',
             'username' => 'required|string|unique:users,username',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'roleID' => 'required|string'
         ]);
 
-        $staff = User::create([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'birthday' => $request->birthday,
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => $request->password,
-            'RoleID' => 2,
-        ]);
-        return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+        
+        switch($request->roleID){
+            case "2":
+                User::create([
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'birthday' => $request->birthday,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'password' => $request->password,
+                    'RoleID' => 2,
+                ]);
+                return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+            case "4":
+                User::create([
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'birthday' => $request->birthday,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'password' => $request->password,
+                    'RoleID' => 4,
+                ]);
+                return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+            case "5":
+                User::create([
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'birthday' => $request->birthday,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'password' => $request->password,
+                    'RoleID' => 5,
+                ]);
+                return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+            case "6":
+                User::create([
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'birthday' => $request->birthday,
+                    'email' => $request->email,
+                    'username' => $request->username,
+                    'password' => $request->password,
+                    'RoleID' => 6,
+                ]);
+                return redirect()->route('admin.user.search')->with('success', 'Staff added successfully!');
+            default:
+                return "Hello";
+        }
     }
 
     public function image(Request $request){

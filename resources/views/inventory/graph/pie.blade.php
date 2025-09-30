@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @include('icon')
+    <script src="{{ asset('js/tailwind.js')}}"></script>
+    <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
+</head>
+<body class="bg-[#094047] text-white">
+    <div class="flex">
+        @include('inventory.sidebar')
+        <div class="flex-1 p-6">
+            <h1 class="text-3xl font-bold text-center mb-8">Sales Analytics Dashboard</h1>
+            <div>
+                <div class="bg-[#0c5560] rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Best Selling Products</h2>
+                    <div class="flex justify-center items-center h-96">
+                        <div class="w-full max-w-4xl h-full">
+                            <canvas id="bestSellersChart" class="h-full w-full"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Best Sellers Chart Script -->
+    <script src="{{ asset('js/chart.umd.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script>
+        // Fetch best seller data passed from the controller
+        const rawBestSellers = @json($bestSellers);
+        console.log("Raw data from controller:", rawBestSellers);
+        
+        // Properly group sales by product name using simple addition
+        const productSalesMap = {};
+        
+        // Process each row from the database
+        rawBestSellers.forEach(item => {
+            const productName = item.productName;
+            // Convert to number and ensure it's an actual number
+            const quantity = Number(item.totalSold);
+            
+            // Initialize if first time seeing this product
+            if (!productSalesMap[productName]) {
+                productSalesMap[productName] = 0;
+            }
+            
+            // Add the EXACT quantity from this record (no multipliers)
+            productSalesMap[productName] += quantity;
+        });
+        
+        console.log("Aggregated product sales:", productSalesMap);
+        
+        // Extract labels and data for the chart
+        const labels = Object.keys(productSalesMap);
+        const data = Object.values(productSalesMap);
+        
+        // Generate colors (one per product)
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        
+        const colors = labels.map(() => getRandomColor());
+        
+        // Setup the chart with the correct data
+        const bsCtx = document.getElementById('bestSellersChart').getContext('2d');
+        const bestSellersChart = new Chart(bsCtx, {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Units Sold',
+            data: data,
+            backgroundColor: colors,
+            borderColor: 'white',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                enabled: false // disables hover tooltips completely
+            },
+            legend: {
+                position: 'right',
+                labels: {
+                    color: 'white',
+                    boxWidth: 20,
+                    padding: 15,
+                    usePointStyle: true
+                },
+                align: 'center',
+                maxHeight: 300
+            },
+            datalabels: {
+                color: 'white',
+                font: {
+                    weight: 'bold',
+                    size: 14
+                },
+                formatter: (value, context) => {
+                    return `${value} units`; // always display value
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
+});
+
+    </script>
+    @include('footer')
+</body>
+</html>

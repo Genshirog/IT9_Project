@@ -31,7 +31,7 @@ class CustomerController extends Controller
 
     public function cart(){
         $user = Auth::user();
-        $cartItems = DB::table('items_view')->get();
+        $cartItems = DB::table('items_view')->where('UserID', $user->UserID)->get();
         return view('customer.cart',compact('user','cartItems'));
     }
 
