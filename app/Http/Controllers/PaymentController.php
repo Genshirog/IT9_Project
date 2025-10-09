@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,20 +71,41 @@ class PaymentController extends Controller
 
                 // 3. Payment creation
                 if ($request->paymentMethod == 'gcash') {
-                    Payment::create([
+                    $paymentRecord = Payment::create([
                         'OrderID'       => $order->OrderID,
                         'paymentMethod' => $request->paymentMethod,
                         'amountPayed'   => $request->amountPayed,
                         'amountChanged' => $request->amountPayed - $order->totalPrice,
                         'status'        => 'Paid'
                     ]);
+                    
                 } else if ($request->paymentMethod == 'cash') {
-                    Payment::create([
+                    $paymentRecord = Payment::create([
                         'OrderID'       => $order->OrderID,
                         'paymentMethod' => $request->paymentMethod,
                         'amountPayed'   => 0,
                         'amountChanged' => 0,
                         'status'        => 'Unpaid',
+                    ]);
+                }
+
+                // ✅ Call Node.js blockchain microservice
+                try {
+                    $response = Http::post('http://127.0.0.1:3001/record-payment', [
+                        'PaymentID'     => $paymentRecord->PaymentID, // match your DB column name
+                        'OrderID'       => $order->OrderID,
+                        'amountPayed'   => $paymentRecord->amountPayed,
+                        'paymentMethod' => $paymentRecord->paymentMethod,
+                    ]);
+
+                    if ($response->failed()) {
+                        Log::error('Blockchain API failed', [
+                            'response' => $response->body()
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('Blockchain API exception', [
+                        'message' => $e->getMessage()
                     ]);
                 }
 

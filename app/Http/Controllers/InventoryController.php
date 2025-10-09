@@ -60,13 +60,10 @@ class InventoryController extends Controller
         DB::beginTransaction();
         
         try {
-            // Find inventory
             $inventory = Inventory::findOrFail($id);
-            
-            // Calculate new quantity
+
             $newQuantity = $inventory->quantity + $request->quantity;
-            
-            // Determine new status
+
             $percentage = ($newQuantity / $inventory->capacity) * 100;
             if ($percentage >= 50) {
                 $newStatus = 'In Stock';
@@ -76,13 +73,11 @@ class InventoryController extends Controller
                 $newStatus = 'Out of Stock';
             }
 
-            // Update inventory
             $inventory->quantity = $newQuantity;
             $inventory->status = $newStatus;
             $inventory->lastUpdated = now()->toDateString();
             $inventory->save();
 
-            // Create movement record
             Movement::create([
                 'InventoryID' => $id,
                 'changeType' => 'Restock',
@@ -93,16 +88,75 @@ class InventoryController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'success' => true,
-                'newQuantity' => $newQuantity,
-                'status' => $newStatus,
-                'lastUpdated' => now()->format('Y-m-d')
-            ]);
+            // Redirect like customer.storeToCart
+            return redirect()->back()->with('success', 'Product restocked successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['success' => false, 'message' => 'Restock failed'], 500);
+            return redirect()->back()->with('error', 'Restock failed!');
         }
     }
+
+    public function exportCSV()
+    {
+        // Fetch data from the same view
+        $inventoryTable = DB::table("inventory_view")->get();
+
+        // Filename
+        $filename = "inventory_" . date('Y-m-d_H-i-s') . ".csv";
+
+        // Create a temp file
+        $handle = fopen('php://temp', 'r+');
+
+        // Add header row
+        fputcsv($handle, [
+            'Inventory ID', 
+            'Product Name', 
+            'Category', 
+            'Capacity', 
+            'Stock', 
+            'Status', 
+            'Last Updated'
+        ]);
+
+        // Add data rows
+        foreach ($inventoryTable as $item) {
+            fputcsv($handle, [
+                $item->InventoryID,
+                $item->productName,
+                $item->category,
+                $item->capacity,
+                $item->quantity,
+                $item->status,
+                $item->lastUpdated
+            ]);
+        }
+
+        // Rewind so we can read it
+        rewind($handle);
+        $csvContent = stream_get_contents($handle);
+        fclose($handle);
+
+        // Return download response
+        return response($csvContent)
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+    }
+
+    public function search(Request $request)
+    {
+        $user = Auth::user();
+        $query = $request->input('productName'); // get search text
+
+        $inventoryTable = DB::table('inventory_view')
+            ->when($query, function ($q) use ($query) {
+                $q->where('productName', 'like', '%' . $query . '%');
+            })
+            ->get();
+
+        return view('inventory.site.edit', compact('user', 'inventoryTable'));
+    }
+
+
+
 }

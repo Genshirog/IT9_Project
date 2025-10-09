@@ -101,15 +101,34 @@
                                     </span>
                                 </td>
                                 <td class="py-4 px-6">
-                                    <form method="POST" action="{{ route('kitchen.site.updateStatus', $order->OrderID) }}">
+                                    <form method="POST" action="{{ route('staff.site.updateStatus', $order->OrderID) }}">
                                         @csrf
                                         @method('PUT')
                                         <button
-                                            class="bg-indigo-500 hover:bg-green-600 text-white text-xs p-4 rounded"
+                                            class="bg-indigo-500 hover:bg-green-600 text-white text-xs p-2 rounded"
                                             type="submit">
                                             Next Status
                                         </button>
                                     </form>
+                                </td>
+                            </tr>
+
+                            <!-- Nested item list -->
+                            <tr class="bg-gray-50">
+                                <td colspan="3" class="py-3 px-6">
+                                    <div class="ml-6">
+                                        <strong>Items:</strong>
+                                        <ul class="list-disc ml-5">
+                                            @foreach ($orderItems[$order->OrderID] ?? [] as $item)
+                                                <li class="flex items-center gap-2">
+                                                    @if (!empty($item->image))
+                                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->productName }}" class="w-8 h-8 rounded">
+                                                    @endif
+                                                    <span>{{ $item->productName }} — x{{ $item->quantity }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

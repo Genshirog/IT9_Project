@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="{{ asset('js/tailwind.js')}}"></script>
+    <link href="{{ asset('font_awesome/css/all.min.css')}}" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>System Status Table</title>
 </head>
@@ -66,10 +66,10 @@
                                 <td class="py-4 px-6 break-words whitespace-normal">
                                     <button 
                                         class="text-green-500 hover:underline"
-                                        data-id="{{ $inventory->InventoryID }}"
                                         @click="openModal('{{ $inventory->InventoryID }}', '{{ $inventory->productName }}', {{ $inventory->quantity }}, '{{ asset('storage/'.$inventory->image) }}')">
                                         Restock
                                     </button>
+
                                 </td>
                             </tr>
                             @endforeach
@@ -79,46 +79,48 @@
             </div>
 
             <!-- Restock Modal -->
-            <div x-show="modalOpen" @click.away="modalOpen = false"
-                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div x-show="modalOpen" @click.away="modalOpen = false"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 
-                <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
-                    <button type="button" @click="modalOpen = false"
-                            class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl">✕</button>
-                    
-                    <h2 class="text-xl font-bold mb-4 text-gray-800">Restock Product</h2>
-                    
-                    <!-- Product Image and Info -->
-                    <div class="flex items-center space-x-4 mb-6 pb-4 border-b">
-                        <img :src="modalProductImage" alt="Product" class="h-24 w-24 object-cover rounded-lg border">
-                        <div>
-                            <p class="font-semibold text-lg text-gray-800" x-text="modalProductName"></p>
-                            <p class="text-sm text-gray-600">Current Stock: <span class="font-medium" x-text="modalCurrentQuantity"></span></p>
-                        </div>
-                    </div>
-                    
-                    <div x-data="{ quantity: '' }" class="flex flex-col space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Restock Quantity</label>
-                            <input 
-                                type="number" 
-                                x-model="quantity"
-                                min="1"
-                                placeholder="Enter quantity to add"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                            />
+                    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
+                        <button type="button" @click="modalOpen = false"
+                                class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-xl">✕</button>
+
+                        <h2 class="text-xl font-bold mb-4 text-gray-800">Restock Product</h2>
+
+                        <!-- Product Image and Info -->
+                        <div class="flex items-center space-x-4 mb-6 pb-4 border-b">
+                            <img :src="modalProductImage" alt="Product"
+                                class="h-24 w-24 object-cover rounded-lg border">
+                            <div>
+                                <p class="font-semibold text-lg text-gray-800" x-text="modalProductName"></p>
+                                <p class="text-sm text-gray-600">
+                                    Current Stock:
+                                    <span class="font-medium" x-text="modalCurrentQuantity"></span>
+                                </p>
+                            </div>
                         </div>
 
-                        <button 
-                            @click="submitRestock(quantity)" 
-                            :disabled="!quantity || quantity < 1"
-                            :class="!quantity || quantity < 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'"
-                            class="text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                            Confirm Restock
-                        </button>
+                        <!-- Laravel Form -->
+                        <form method="POST" :action="'{{ url('/staff/product/restocking') }}/' + modalInventoryID">
+                            @csrf
+                            <div class="flex flex-col space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Restock Quantity</label>
+                                    <input type="number" name="quantity" min="1"
+                                        placeholder="Enter quantity to add"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                        required>
+                                </div>
+
+                                <button type="submit"
+                                        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                    Confirm Restock
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 
@@ -159,38 +161,6 @@
                     this.modalProductImage = image;
                     this.modalOpen = true;
                 },
-
-                submitRestock(quantity) {
-                    if (!quantity || quantity < 1) {
-                        alert("Please enter a valid quantity!");
-                        return;
-                    }
-
-                    fetch(`/inventory/restock/${this.modalInventoryID}`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                        },
-                        body: JSON.stringify({ quantity: parseInt(quantity) })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Update table row instantly
-                            let row = document.querySelector(`[data-id="${this.modalInventoryID}"]`).closest("tr");
-                            row.querySelectorAll("td")[5].innerText = data.newQuantity;
-                            row.querySelectorAll("td")[6].innerText = data.status;
-                            row.querySelectorAll("td")[7].innerText = data.lastUpdated;
-
-                            alert("Restocked successfully!");
-                            this.modalOpen = false;
-                        } else {
-                            alert("Restock failed!");
-                        }
-                    })
-                    .catch(() => alert("Error during restock!"));
-                }
             }
         }
     </script>

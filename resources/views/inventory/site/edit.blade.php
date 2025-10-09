@@ -60,12 +60,12 @@
 
                     <div class="flex items-center justify-end space-x-2">
                         <!-- Search -->
-                        <form action="" method="POST" class="flex items-center">
+                        <form action="{{ route('inventory.site.search') }}" method="GET" class="flex items-center">
                             @csrf
                             <label for="search" class="text-gray-700 font-medium mr-2">Search</label>
                             <input
                                 type="text"
-                                name="search"
+                                name="productName"
                                 id="search"
                                 placeholder="Search..."
                                 class="p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -76,17 +76,16 @@
                         </form>
 
                         <!-- Export CSV -->
-                        <button class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                        <!-- Export CSV -->
+                        <a href="{{ route('inventory.site.exportCSV') }}" class="bg-green-500 text-white p-2 rounded hover:bg-green-600">
                             <i class="fas fa-file-csv"></i> Export CSV
-                        </button>
+                        </a>
+
 
                         <!-- Notify Staff -->
-                        <form method="POST" action="">
-                            @csrf
-                            <button type="submit" class="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600">
-                                <i class="fas fa-bell"></i> Notify Staff
-                            </button>
-                        </form>
+                        <button id="notifyStaffBtn" type="button" class="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600">
+                            <i class="fas fa-bell"></i> Notify Staff
+                        </button>
                     </div>
                 </div>
 
@@ -124,5 +123,23 @@
         </div>
     </div>
     @include('footer')
+    <script>
+document.getElementById('notifyStaffBtn').addEventListener('click', function () {
+    
+    // Create alert box
+    let alertBox = document.createElement('div');
+    alertBox.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 transition-opacity duration-500 opacity-100';
+    alertBox.innerText = '✅ Staff has been notified!';
+
+    // Add to page
+    document.body.appendChild(alertBox);
+
+    // Fade out after 2 seconds
+    setTimeout(() => {
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 500); // Remove completely
+    }, 2000);
+});
+</script>
 </body>
 </html>

@@ -35,8 +35,14 @@ class KitchenController extends Controller
         $orders = DB::table('order_view')
             ->where('orderStatus', '<>', 'Delivered')
             ->get();
+
+        $orderItems = DB::table('order_item_view')
+            ->whereIn('OrderID', $orders->pluck('OrderID'))
+            ->get()
+            ->groupBy('OrderID');
+
         $unpay = DB::table('unpaid_payment_view')->get();
-        return view('kitchen.site.edit',compact('user','orders','unpay'));
+        return view('kitchen.site.edit',compact('user','orders','unpay','orderItems'));
     }
 
     public function updateStatus(Request $request, $id){

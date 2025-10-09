@@ -41,7 +41,13 @@ class CustomerController extends Controller
             ->where('orderStatus', '<>', 'Delivered')
             ->where('UserID', $user->UserID)
             ->paginate(5);
-        return view('customer.delivery',compact('user','delivery'));
+
+        $orderItems = DB::table('order_item_view')
+        ->whereIn('OrderID', $delivery->pluck('OrderID'))
+        ->get()
+        ->groupBy('OrderID');
+
+        return view('customer.delivery',compact('user','delivery','orderItems'));
     }
 
     public function history(){

@@ -60,18 +60,30 @@ class StaffController extends Controller
         return redirect()->route('staff.product.add');
     }
     public function search(){
+            $user = Auth::user();
+            $products = Product::all();
+            return view('staff.product.search',compact('user','products'));
+        }
+        public function edit() {
         $user = Auth::user();
-        $products = Product::all();
-        return view('staff.product.search',compact('user','products'));
-    }
-    public function edit(){
-        $user = Auth::user();
+
+        // Get orders
         $orders = DB::table('order_view')
             ->where('orderStatus', '<>', 'Delivered')
             ->get();
+
+        // Get all items related to those orders
+        $orderItems = DB::table('order_item_view')
+            ->whereIn('OrderID', $orders->pluck('OrderID'))
+            ->get()
+            ->groupBy('OrderID');
+
         $unpay = DB::table('unpaid_payment_view')->get();
-        return view('staff.site.edit',compact('user','orders','unpay'));
+
+        return view('staff.site.edit', compact('user', 'orders', 'orderItems', 'unpay'));
     }
+
+
     public function bar(){
         $user = Auth::user();
         $bestSellers = DB::table('best_selling_products')->get();

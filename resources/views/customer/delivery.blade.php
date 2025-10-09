@@ -33,10 +33,30 @@
                                 <td class="py-4 px-6 break-words">{{ $order->OrderID }}</td>
                                 <td class="py-4 px-6 break-words">{{ $order->orderStatus }}</td>
                                 <td class="py-4 px-6 break-words">{{ $order->paymentStatus }}</td>
-                                <td class="py-4 px-6 break-words">{{ $order->totalPrice }}</td>
+                                <td class="py-4 px-6 break-words">₱{{ number_format($order->totalPrice, 2) }}</td>
+                            </tr>
+
+                            <!-- Display items below each order -->
+                            <tr class="bg-gray-50">
+                                <td colspan="4" class="py-3 px-6">
+                                    <div class="ml-6">
+                                        <strong>Items:</strong>
+                                        <ul class="list-disc ml-5 space-y-1">
+                                            @foreach ($orderItems[$order->OrderID] ?? [] as $item)
+                                                <li class="flex items-center gap-2">
+                                                    @if (!empty($item->image))
+                                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->productName }}" class="w-8 h-8 rounded">
+                                                    @endif
+                                                    <span>{{ $item->productName }} — x{{ $item->quantity }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
+
                     </table>
                     <div class="mt-4">
                         {{ $delivery->links() }}

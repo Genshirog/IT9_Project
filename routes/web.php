@@ -53,7 +53,7 @@ Route::prefix('staff')->name('staff.')->middleware('checkrole:2')->group(functio
         Route::put('/image', [StaffController::class, 'image'])->name('image');
         Route::get('/search', [StaffController::class, 'search'])->name('search');
         Route::get('/restock', [StaffController::class, 'restock'])->name('restock');
-        Route::post('/inventory/restock/{id}', [InventoryController::class, 'restocking'])->name('restock');
+        Route::post('/restocking/{id}', [InventoryController::class, 'restocking'])->name('restocking');
     });
 
     Route::prefix('site')->name('site.')->group(function () {
@@ -103,6 +103,8 @@ Route::prefix('inventory')->name('inventory.')->middleware('checkrole:6')->group
 
     Route::prefix('site')->name('site.')->group(function () {
         Route::get('/inventory', [InventoryController::class, 'inventory'])->name('edit');
+        Route::get('/inventory/search', [InventoryController::class, 'search'])->name('search');
+        Route::get('/export-csv', [InventoryController::class, 'exportCSV'])->name('exportCSV');
     });
 
     Route::prefix('graph')->name('graph.')->group(function () {
