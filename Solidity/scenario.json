@@ -1,0 +1,47 @@
+{
+  "accounts": {
+    "account{0}": "0x0465cC24326cAfb617bCFAC2ff1153Dab34e8381"
+  },
+  "linkReferences": {},
+  "transactions": [
+    {
+      "timestamp": 1759289313463,
+      "record": {
+        "value": "5000000000000000000",
+        "inputs": "()",
+        "parameters": [],
+        "name": "",
+        "type": "constructor",
+        "abi": "0xe9caefc4b85bb7de80c3c4714551df092e0fcdc060382724927ba6337f834ee5",
+        "contractName": "HelloWorld",
+        "bytecode": "6080604052348015600e575f5ffd5b5061010f8061001c5f395ff3fe6080604052348015600e575f5ffd5b50600436106026575f3560e01c8063ef5fb05b14602a575b5f5ffd5b60306032565b005b7fe762c7c6ad44bf64dd9f998228fe1bf5218e470864dcfff5544c541c5b6c649d604051605d9060bd565b60405180910390a1565b5f82825260208201905092915050565b7f48656c6c6f2c20576f726c6421000000000000000000000000000000000000005f82015250565b5f60a9600d836067565b915060b2826077565b602082019050919050565b5f6020820190508181035f83015260d281609f565b905091905056fea26469706673582212209c1ec4219e8d8ee034f153a48d7cba308786617312c0073e25f54e319eea868f64736f6c634300081e0033",
+        "linkReferences": {},
+        "from": "account{0}"
+      }
+    }
+  ],
+  "abis": {
+    "0xe9caefc4b85bb7de80c3c4714551df092e0fcdc060382724927ba6337f834ee5": [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "message",
+            "type": "string"
+          }
+        ],
+        "name": "Hello",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "sayHello",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+  }
+}
